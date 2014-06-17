@@ -1,11 +1,11 @@
 {
   "name": "InsightFL",
   "version": "0.1.0",
-  "homepage": "https://github.com/stormpython/insightfl",
+  "homepage": "https://github.com/bespam/AdNet",
   "authors": [
-    "Shelby Sturgis <shelbyjsturgis@gmail.com>"
+    "Igor Bespamyatnov <igorbest@gmail.com>"
   ],
-  "description": "A basic template for building minimal flask applications",
+  "description": "AdNet",
   "license": "MIT",
   "ignore": [
     "**/.*",
