@@ -11,6 +11,22 @@
 <script src="{{ url_for('static', filename='js/sigma/sigma.parseJson.js') }}"></script>
 <script src="{{ url_for('static', filename='js/fancybox/jquery.fancybox.pack.js') }}"></script>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+
+jQuery.getJSON(GetQueryStringParams("config",{{ url_for('static', filename='config.json') }}), function(data, textStatus, jqXHR) {
+	config=data;
+	
+	if (config.type!="network") {
+		//bad config
+		alert("Invalid configuration settings.")
+		return;
+	}
+	
+	//As soon as page is ready (and data ready) set up it
+	$(document).ready(setupGUI(config));
+});//End JSON Config load
+</script>
+
 {% endblock %}
 
 {% block content %}
