@@ -26,8 +26,11 @@ def index():
 @app.route('/search', methods = ['GET', 'POST'])
 def search():
     # Renders index.html.
-    #establish connection        
-    conn = pymysql.connect(user='root', passwd='12345678', host='localhost')
+    #Local
+    #conn = pymysql.connect(user='root', passwd='12345678', host='localhost')
+    #remote
+    conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cdu2bu8f4pau.us-east-1.rds.amazonaws.com', port=3306)
+    
     db = conn.cursor()
     #connect db
     db.execute('USE news_graph')
