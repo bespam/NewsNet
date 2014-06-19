@@ -14,7 +14,7 @@
   },
   "legend": {
     "edgeLabel": "links",
-    "colorLabel": "Pagerank",
+    "colorLabel": "Edge Diff",
     "nodeLabel": "News media"
   },
   "features": {
@@ -30,7 +30,7 @@
     "graphProperties": {
       "minEdgeSize": 0.2,
       "maxNodeSize": 20,
-      "maxEdgeSize": 3.0,
+      "maxEdgeSize": 0.2,
       "minNodeSize": 1
     },
     "drawingProperties": {

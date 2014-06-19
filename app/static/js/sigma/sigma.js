@@ -684,7 +684,7 @@ sigma.classes.EventDispatcher = function () {
             labelActiveColor: "default",
             defaultLabelActiveColor: "#000",
             labelSize: "fixed",
-            defaultLabelSize: 12,
+            defaultLabelSize: 20,
             labelSizeRatio: 2,
             labelThreshold: 6,
             font: "Arial",

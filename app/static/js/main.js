@@ -428,7 +428,7 @@ function nodeNormal() {
         a.hidden = !1;
         a.attr.color = !1;
         a.attr.lineWidth = !1;
-        a.attr.size = !1
+        a.attr.size = !1;
     }), sigInst.draw(2, 2, 2, 2), sigInst.neighbors = {}, sigInst.active = !1, $GP.calculating = !1, window.location.hash = "")
 }
 

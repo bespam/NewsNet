@@ -7,7 +7,6 @@ import pdb
 import math, random
 from sets import Set
 import numpy as np
-import copy
 
 
 # To create a database connection, add the following
@@ -44,7 +43,7 @@ def search():
         rank_sel =[int(config['links_slider']), int(config['alexa_slider']),int(config['p_rank_slider']),
         int(config['in_slider']),int(config['out_slider']),int(config['self_slider'])] 
     else:
-        config = {'neg_domains':'','pos_domains':'', 'links_slider':'100','alexa_slider':'0', 'p_rank_slider':'0',
+        config = {'neg_domains':'','pos_domains':'', 'links_slider':'40','alexa_slider':'40', 'p_rank_slider':'40',
                 'in_slider':'0','out_slider':'0','self_slider':'0'}   
     if request.form.getlist('config'):
         rank_sel = [int(slider_form.data['links_slider']), int(slider_form.data['alexa_slider']), 
@@ -253,7 +252,7 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
                 ) as E
                 on nodes.node_id = E.col
                 ORDER BY amount ASC
-                LIMIT 100) as G 
+                LIMIT 10000) as G 
             WHERE label NOT IN ('''+joined_domains+ '''))
             ) as j
             GROUP BY node_id,label,alexa,location,n_out,n_in,w_out,w_in,w_diff,w_self,p_rank
@@ -263,24 +262,27 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
     out = db.fetchall()    
     rec_nodes= np.array(out)
     #create number of links column
-    rec_joined = copy.copy(rec_nodes)
+    rec_joined = np.ones((len(rec_nodes), 1))/10.0
+    h = len(rec_joined)
+    rec_joined = np.append(rec_joined,rec_nodes,axis=1)
     #renormalizing values
     #inverse_alexa_ranking
-    out = max(rec_joined[:,2].astype('float'))/(rec_joined[:,2].astype('float'))
-    rec_joined[:,2]=out
+    rec_joined[:,3] = max(rec_joined[:,3].astype('float'))/(rec_joined[:,3].astype('float'))   
     #log norm
-    rec_joined[:,10]=np.array(rec_joined[:,10].astype('float')/min(rec_joined[:,10].astype('float')))
-    rec_joined[:,6]=np.array(rec_joined[:,6].astype('float')+1.0) 
+    rec_joined[:,11]=np.array(rec_joined[:,11].astype('float')/min(rec_joined[:,11].astype('float')))
+    rec_joined[:,8]=np.array(rec_joined[:,8].astype('float')+1.0) 
     rec_joined[:,7]=np.array(rec_joined[:,7].astype('float')+1.0) 
-    rec_joined[:,9]=np.array(rec_joined[:,9].astype('float')+1.0)     
+    rec_joined[:,10]=np.array(rec_joined[:,10].astype('float')+1.0)     
  
     #Select top 20 based on the cumulative metric
-    rec_max = np.amax(rec_joined[:,[11,2,10,6,7,9]].astype('float'),0)
-    rec_min = np.amin(rec_joined[:,[11,2,10,6,7,9]].astype('float'),0)
+    rec_max = np.amax(rec_joined[:,[0,3,11,8,7,10]].astype('float'),0)
+    rec_min = np.amin(rec_joined[:,[0,3,11,8,7,10]].astype('float'),0)
     #fix rec_min problem
-    #rec_min[0]=0.0
+    rec_min[0] = 0.0
+    rec_max[0] = 1.0    
     #combined rank
-    r = np.sum((rec_joined[:,[11,2,10,6,7,9]].astype('float')-rec_min)/(rec_max-rec_min)*rank_sel,1)
+    #pdb.set_trace()
+    r = np.sum((rec_joined[:,[0,3,11,8,7,10]].astype('float')-rec_min)/(rec_max-rec_min)*rank_sel,1)*rec_joined[:,12].astype('float')
     #normalize final rank
     if max(r) <=0:
         r2 = r*0.0
@@ -288,7 +290,7 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
         #r1 = np.array((np.array([i if i>0 else 0 for i in r])+max(r.tolist())*0.1).tolist())    
         r2 = r#(r-min(r))/(max(r)-min(r))
     print r2
-
+    #pdb.set_trace()
     #pdb.set_trace() 
     #combine arrays
     data = np.append(rec_nodes,np.matrix(r2).T,axis=1)
