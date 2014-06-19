@@ -18,6 +18,18 @@ function GetQueryStringParams(sParam,defaultVal) {
     return defaultVal;
 }
 
+jQuery.getJSON(GetQueryStringParams("config","{{ url_for('static', filename='config.json') }}"), function(data, textStatus, jqXHR) {
+	config=data;
+	
+	if (config.type!="network") {
+		//bad config
+		alert("Invalid configuration settings.")
+		return;
+	}
+	
+	//As soon as page is ready (and data ready) set up it
+	$(document).ready(setupGUI(config));
+});//End JSON Config load
 
 // FUNCTION DECLARATIONS
 

@@ -51,8 +51,9 @@
 		<div class="col-md-7">
 		    <div class="collapse navbar-collapse">
 		      <ul class="nav navbar-nav" style="font-size:20px">
-		        <li><a href="search">Search</a></li>
-		        <li><a href="explore">Explore</a></li>
+		        <li><a href="search">Recommender</a></li>
+		        <li><a href="explore">Full Graph</a></li>
+                <li><a href="table">Data Table</a></li>
 		      </ul>
 		    </div>
 		</div>
@@ -67,6 +68,7 @@
       </div>
     </div>
 
+
     <!-- Main content injection point -->
     <!-- Within the content block, wrap content with <div id="wrap"><div>
           when using the footer block to push the footer down. -->
@@ -75,15 +77,17 @@
     <!-- The footer is placed within its own block to render properly -->
     {% block footer %}{% endblock %}
 
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ url_for('static', filename='vendor/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap-typeahead.js') }}"></script>
-
     <!-- Page specific script files -->
     {% block scripts %}{% endblock %}
+
+
 
     <script type="text/javascript">
       // Dynamically add the bootstrap 'active' class to navbar links.

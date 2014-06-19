@@ -77,18 +77,17 @@
                 </div>
                 <div class="panel-body" style="height:100%">
                     <div class="row"  id ="sliders" style="visibility: hidden">
-                      <form role="form" action="/search" method="post" name="slider">  
+                      <form role="form" id="sliders_form" action="/search" method="post" name="slider">  
                         <div class="col-md-6">    
-                    Edge weights:<br><div style="margin-bottom:0px">10%{{slider_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Alexa rank:<br><div style="margin-bottom:0px">0%{{slider_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Page rank:<br><div style="margin-bottom:0px">0%{{slider_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                        {{slider_form.config(size=150, class="form-control", type='hidden', autocomplete='off', value = config)}}
-                        <button type="submit" class="btn btn-default" value='submit'><span class="glyphicon glyphicon-repeat"></span> Recalculate</button>            
+                    Edge weights:<br><div style="margin-bottom:15px">10%{{slider_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Alexa rank:<br><div style="margin-bottom:15px">0%{{slider_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Page rank:<br><div style="margin-bottom:15px">0%{{slider_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                        {{slider_form.config(size=150, class="form-control", type='hidden', autocomplete='off', value = config)}}          
                         </div>
                         <div class="col-md-6">
-                    In Degree:<br><div style="margin-bottom:0px">0%{{slider_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Out Degree:<br><div style="margin-bottom:5px">0%{{slider_form.out_slider(id ='out_slider', class='span2', size=15, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Self Degree:<br><div style="margin-bottom:5px">0%{{slider_form.self_slider(id ='self_slider', class='span2', size=15, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    In Degree:<br><div style="margin-bottom:15px">0%{{slider_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Out Degree:<br><div style="margin-bottom:15px">0%{{slider_form.out_slider(id ='out_slider', class='span2', size=15, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Self Degree:<br><div style="margin-bottom:15px">0%{{slider_form.self_slider(id ='self_slider', class='span2', size=15, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
                         </div>
                         </form>            
                     </div>
@@ -100,12 +99,12 @@
 {% if data %}
 <div class="col-md-8" style="padding:0px;padding-right:20px;padding-left:20px;height:100%">
 <!-- Output -->
-    <div class="panel panel-primary"  style="margin:0px;height: 40%">
+    <div class="panel panel-primary"  style="margin:0px;height:95%">
         <div class="panel-heading">
             <h3 class="panel-title">Recommended domains</h3>
         </div>
-        <div class="panel-body" style="height:83%; overflow:auto;">
-            <table class="table table-hover">
+        <div class="panel-body" style="margin:0px;height:35%; overflow:auto;">
+            <table class="table table-hover" style="text-align:left">
                 <tr>
                   <th>Domain</th>
                   <th>Location</th>
@@ -115,29 +114,25 @@
                   <th>In Degree</th>
                   <th>Out Degree</th>
                   <th>Self Degree</th>
+                  <th>Score</th>
                 </tr>
                 {%for line in data%}
                 <tr>
                   <td>{{line[1]}}</td>
                   <td>{{line[3]}}</td>
-                  <td>{{line[11]}}</td> 
+                  <td>{{"%.3f" % line[11]|float}}</td> 
                   <td>{{line[2]}}</td>
-                  <td>{{line[10]}}</td>
+                  <td>{{"%.3f" % line[10]|float}}</td>
                   <td>{{line[7]}}</td>
                   <td>{{line[6]}}</td>
                   <td>{{line[9]}}</td>
+                  <td>{{"%.3f" % line[12]|float}}</td>
                 </tr>
                 {% endfor %}
-            </table>         
+            </table>
         </div>
-    </div>
-
-    <div class="panel panel-warning"  style="margin:0px;padding:0px;height: 55%">
-        <div class="panel-heading">
-            <h3 class="panel-title">Releated Subgraph</h3>
-        </div>
-        <div class="panel-body" style="margin:0px;height:100%">        
-		    <div id="graph-container" style="width:100%;height: 93%"></div>
+        <div class="panel-body" style="margin:0px;height:100%; overflow:auto">
+            <div id="graph-container" style="width:100%;height:60%;border-top:1px;border-top-style:solid;border-color:#428bca"></div>         
         </div>
     </div>
 {% endif %}
@@ -187,12 +182,10 @@
 <script src="{{ url_for('static', filename='js/sigma_new/plugins/sigma.parsers.json/sigma.parsers.json.js') }}"></script>
 <script>
 // sliders
-$('#links_slider').slider()
-$('#alexa_slider').slider()
-$('#p_rank_slider').slider()
-$('#in_slider').slider()
-$('#out_slider').slider()
-$('#self_slider').slider()
+$('#links_slider, #alexa_slider, #p_rank_slider, #in_slider, #out_slider, #self_slider').slider()
+$('#links_slider, #alexa_slider, #p_rank_slider, #in_slider, #out_slider, #self_slider').on('slideStop',function() {
+    $('#sliders_form').submit()
+});
 $('#sliders').css('visibility','visible')
 // typeahead
 $('#add_pos_domain').typeahead({

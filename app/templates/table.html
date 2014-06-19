@@ -1,0 +1,78 @@
+{% extends "layout/base.html" %}
+
+{% block head %}
+<link href="{{ url_for('static', filename='css/jquery.dataTables.css') }}" rel="stylesheet">
+<style>
+table.dataTable td {
+    text-align: left;
+
+}
+</style>
+{% endblock %}
+
+{% block scripts%}
+<script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+<script>
+
+$('#example').dataTable({
+    "aaData": {{table|safe}},
+    "aaSorting": [[ 2, "asc" ]],
+    "aLengthMenu": [[25], [25]],
+    "paging":   false,
+    "iDisplayLength": 25
+});
+
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="row" style="margin-top:4%; height:95%">
+    <div class="col-md-12">
+        <div class="panel panel-primary panel-primary"  style="margin:0px;height:100%">
+            <div class="panel-heading">
+                <h3 class="panel-title">Full data set</h3>
+            </div>
+            <div class="panel-body" style="margin:0px;height:90%; overflow:auto;">
+                {% if table %}
+                <table id="example" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Location</th> 
+                            <th>Alexa rank</th>
+                            <th>PageRank</th>
+                            <th>In Degree</th>
+                            <th>Out Degree</th>
+                            <th>Self Degree</th>
+                        </tr>
+                    </thead>           
+                    <tfoot>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Location</th>  
+                            <th>Alexa rank</th>
+                            <th>PageRank</th>
+                            <th>In Degree</th>
+                            <th>Out Degree</th>
+                            <th>Self Degree</th>
+                        </tr>
+                    </tfoot>
+             
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}        
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
