@@ -5,7 +5,7 @@ import pdb
 #Local#
 #conn = pymysql.connect(user='root', passwd='12345678', host='localhost')
 #remote
-conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cdu2bu8f4pau.us-east-1.rds.amazonaws.com', port=3306)
+conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cv1io5wgnzkw.us-west-1.rds.amazonaws.com', port=3306)
 
 db = conn.cursor()
 # create db 

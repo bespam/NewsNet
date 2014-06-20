@@ -177,7 +177,7 @@ def ascii_encode_dict(data):
 def connect_db(remote):
     if remote:
         #remote
-        conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cdu2bu8f4pau.us-east-1.rds.amazonaws.com', port=3306)
+        conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cv1io5wgnzkw.us-west-1.rds.amazonaws.com', port=3306)
     else:
         #local
         conn = pymysql.connect(user='root', passwd='12345678', host='localhost')
