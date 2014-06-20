@@ -95,8 +95,8 @@ def explore():
 def table():
     # Renders table.html.
     #connect db
-    db.execute('USE news_graph')
-    db = connect_db(remote = 1)  
+    db = connect_db(remote = 1)
+    db.execute('USE news_graph')  
     #get list of all domains
     sql_q = ''' SELECT * from nodes
             ORDER BY alexa ASC'''
