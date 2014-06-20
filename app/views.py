@@ -9,22 +9,15 @@ from sets import Set
 import numpy as np
 
 
-# To create a database connection, add the following
-# within your view functions:
-# con = con_db(host, port, user, passwd, db)
-
-
 # ROUTING/VIEW FUNCTIONS
 @app.route('/')
 @app.route('/index')
+@app.errorhandler(500)
+@app.errorhandler(404)
 @app.route('/search', methods = ['GET', 'POST'])
 def search():
     # Renders index.html.
-    #Local
-    #conn = pymysql.connect(user='root', passwd='12345678', host='localhost')
-    #remote
-    conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cdu2bu8f4pau.us-east-1.rds.amazonaws.com', port=3306)
-    db = conn.cursor()
+    db = connect_db(remote = 1)
     #connect db
     db.execute('USE news_graph')
     
@@ -101,12 +94,9 @@ def explore():
 @app.route('/table')
 def table():
     # Renders table.html.
-    #conn = pymysql.connect(user='root', passwd='12345678', host='localhost')
-    #remote
-    conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cdu2bu8f4pau.us-east-1.rds.amazonaws.com', port=3306)
-    db = conn.cursor()
     #connect db
-    db.execute('USE news_graph')  
+    db.execute('USE news_graph')
+    db = connect_db(remote = 1)  
     #get list of all domains
     sql_q = ''' SELECT * from nodes
             ORDER BY alexa ASC'''
@@ -127,13 +117,6 @@ def author():
     # Renders author.html.
     return render_template('author.html')
 
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('404.html'), 404
-
-@app.errorhandler(500)
-def internal_error(error):
-    return render_template('500.html'), 500
 
 
 #extract config from proper requests
@@ -189,6 +172,16 @@ def mod_config(r):
 def ascii_encode_dict(data):
     ascii_encode = lambda x: x.encode('ascii')
     return dict(map(ascii_encode, pair) for pair in data.items())
+
+#connection to db
+def connect_db(remote):
+    if remote:
+        #remote
+        conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cdu2bu8f4pau.us-east-1.rds.amazonaws.com', port=3306)
+    else:
+        #local
+        conn = pymysql.connect(user='root', passwd='12345678', host='localhost')
+    return conn.cursor()
 
 
 #queryDB
