@@ -1,11 +1,11 @@
 {
-  "name": "AdNet",
+  "name": "NewsNet",
   "version": "0.1.0",
-  "homepage": "https://github.com/bespam/AdNet",
+  "homepage": "https://github.com/bespam/NewsNet",
   "authors": [
     "Igor Bespamyatnov <igorbest@gmail.com>"
   ],
-  "description": "AdNet",
+  "description": "NesNet",
   "license": "MIT",
   "ignore": [
     "**/.*",

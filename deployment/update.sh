@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Update script
-cd /home/ubuntu/AdNet
+cd /home/ubuntu/NewsNet
 
 # Pulls down the latest changes
 git pull origin master

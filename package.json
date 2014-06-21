@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bespam/AdNet.git"
+    "url": "git://github.com/bespam/NewsNet.git"
   },
   "author": "Igor Bespamyatnov igorbest@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bespam/AdNet/issues"
+    "url": "https://github.com/bespam/NewsNet/issues"
   },
-  "homepage": "https://github.com/bespam/AdNet",
+  "homepage": "https://github.com/bespam/NewsNet",
   "dependencies": {
     "bower": "~1.3.1"
   }

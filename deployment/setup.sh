@@ -80,15 +80,15 @@ setup_nginx () {
 
     # Replaces the nginx default file
     sudo rm /etc/nginx/sites-available/default
-    sudo rm /etc/nginx/sites-enabled/AdNet
-    sudo rm /etc/nginx/sites-available/insightfl
-    sudo rm /etc/nginx/sites-enabled/insightfl
+    sudo rm /etc/nginx/sites-enabled/default
     sudo rm /etc/nginx/sites-available/AdNet
-    sudo rm /etc/nginx/sites-enabled/AdNet
+    sudo rm /etc/nginx/sites-enabled/AdNEt
+    sudo rm /etc/nginx/sites-available/NewsNet
+    sudo rm /etc/nginx/sites-enabled/NewsNet
 
-    sudo touch /etc/nginx/sites-available/AdNet
+    sudo touch /etc/nginx/sites-available/NewsNet
 
-    sudo bash -c 'cat > /etc/nginx/sites-available/AdNet <<- _EOF_
+    sudo bash -c 'cat > /etc/nginx/sites-available/NewsNet <<- _EOF_
     server {
       listen 80;
 
@@ -103,7 +103,7 @@ setup_nginx () {
     }'
 
     # Creates a sudo link to sites-enabled
-    sudo ln -s /etc/nginx/sites-available/AdNet /etc/nginx/sites-enabled/AdNet
+    sudo ln -s /etc/nginx/sites-available/NewsNet /etc/nginx/sites-enabled/NewsNet
 
     # Starts nginx
     sudo service nginx start
@@ -139,10 +139,10 @@ main () {
         echo $'\e[31m'"Please enter a github username"$'\e[0m'
         main
     else
-        read -p $'\e[32m'"Enter the github repository name [AdNet] > "$'\e[0m' project
+        read -p $'\e[32m'"Enter the github repository name [NewsNet] > "$'\e[0m' project
 
-        # Default project name is 'AdNet'
-        project=${project:="AdNet"}
+        # Default project name is 'NewsNet'
+        project=${project:="NewsNet"}
         project_dir=$HOME/$project
         status=$(curl -s -I "https://github.com/$username/$project" | head -n 1 | cut -d$' ' -f2)
 
