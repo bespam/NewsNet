@@ -228,7 +228,8 @@ $('#add_neg_domain').typeahead({
 	//setTimeout(function() { s.stopForceAtlas2(); }, 2000);
 
 
-{% endif %}   
+{% endif %}
+jQuery.getJSON("{{ url_for('static', filename='data.json')}}");   
 </script>
    
 {% endblock %}

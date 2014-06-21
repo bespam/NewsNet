@@ -1,1 +1,1 @@
-News-Net - graph-based recommender tool for news websites.
+News-Net: graph-based recommender tool for news websites.
