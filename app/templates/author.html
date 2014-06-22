@@ -1,30 +1,25 @@
 {% extends "layout/base.html" %}
 
-{% block content %}
-  <div id="wrap">
-    <div class="container">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-5">
-            <img src="https://pbs.twimg.com/profile_images/2606534517/1b8nfpzh7jxixkfax26i.jpeg"
-                 class="img-responsive" height="300px" width="300px"/>
-          </div>
-          <div class="col-md-5">
-            <h1 class="text-justify text-muted">GET IN TOUCH</h1>
-            <p class="lead">I draw points on a canvas for a living, and in my former life I played with ants.</p>
-            <p class="lead">Sometimes I <a href="http://stormpython.me">blog</a>.</p>
-            <p class="lead">
-              Have feedback or want to contribute, submit a
-              <a href="https://github.com/stormpython/insightfl">pull request</a>.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+{% block head %}
+  <link href="{{ url_for('static', filename='vendor/components-revealjs/css/theme/default.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block footer %}
-  {% include "include/footer.html" %}
+{% block content %}
+<div class="reveal" style="background-color:#fff">
+<div class="slides">
+        <section class="" data-id="8404a8577103a93d8a0c441746367f36">
+            <h2>
+                <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/igorbest/images/483469/pasted-from-clipboard.png">
+                            <br>
+                </h2>
+        </section>
+</div>   
+</div>
+{% endblock %}
+
+{% block scripts %}
+  <!-- Presentation Libraries -->
+  <script src="{{ url_for('static', filename='vendor/components-revealjs/lib/js/head.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/components-revealjs/js/reveal.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/reveal.js') }}"></script>
 {% endblock %}

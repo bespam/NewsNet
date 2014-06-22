@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/network.ico') }}">
 
     <title>News-Net</title>
 
@@ -45,15 +45,15 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand"  style="font-size:30px" href="/"><span>News-Net</span></a>
+		      <a class="navbar-brand"  style="font-size:30px" href="/"><span><img src="{{ url_for('static', filename='images/network.png') }}" style="height:90%;vertical-align:text-bottom"> News-Net</span></a>
 		    </div>
 		</div>
 		<div class="col-md-7">
 		    <div class="collapse navbar-collapse">
 		      <ul class="nav navbar-nav" style="font-size:20px">
-		        <li><a href="search">Recommender</a></li>
-		        <li><a href="explore">Full Graph</a></li>
-                <li><a href="table">Data Table</a></li>
+		        <li><a href="search">Graph Recommender</a></li>
+		        <li><a href="explore">Explore Full Graph</a></li>
+                <li><a href="table">Preview Data Table</a></li>
 		      </ul>
 		    </div>
 		</div>

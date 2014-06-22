@@ -165,7 +165,7 @@ def query_db(db, pos_domains, neg_domains):
             ((SELECT * from (
                 SELECT * from nodes 
                 JOIN
-                (SELECT col, SUM(weight_n2) as amount FROM (
+                (SELECT col, SUM(weight_n2)/2.0 as amount FROM (
                     (SELECT source as col, weight_n2 from arcs
                         JOIN 
                         (SELECT node_id FROM nodes WHERE label IN (
