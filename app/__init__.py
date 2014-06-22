@@ -4,7 +4,7 @@ from flask.ext.cache import Cache
 
 # Creates our application.
 app = Flask(__name__)
-cache = Cache(app,config={'CACHE_TYPE': 'simple','timeout':5000})
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 # Development configuration settings
 # WARNING - these should not be used in production

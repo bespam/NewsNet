@@ -1,7 +1,7 @@
-from flask import render_template, flash, redirect, url_for, request
-from app import app, host, port, user, passwd, db, cache
+from flask import render_template, flash, redirect, url_for, session
+from app import app, host, port, user, passwd, db
 import pymysql
-from forms import EditForm, SliderForm
+from forms import PosForm, NegForm, SlidersForm
 import json
 import pdb
 import math, random
@@ -10,6 +10,7 @@ import numpy as np
 
 
 # ROUTING/VIEW FUNCTIONS
+
 @app.route('/')
 @app.route('/index')
 @app.errorhandler(500)
@@ -17,7 +18,7 @@ import numpy as np
 @app.route('/search', methods = ['GET', 'POST'])
 def search():
     # Renders index.html.
-    db = connect_db(remote = 1)
+    db = connect_db(remote = 0)
     #connect db
     db.execute('USE news_graph')
     
@@ -27,64 +28,66 @@ def search():
     db.execute(sql_q)    
     tuples = db.fetchall()    
     all_domains = [{'name':v[0]} for v in tuples]
-    #generate forms and get requests    
-    add_form = EditForm(csrf_enabled = False)
-    slider_form = SliderForm(csrf_enabled = False)
+    #generate forms    
+    pos_form = PosForm(csrf_enabled = False)
+    neg_form = NegForm(csrf_enabled = False)
+    sliders_form = SlidersForm(csrf_enabled = False)
     #dafault values for sliders
-    if cache.get("CONFIG") != None:
-        config = cache.get("CONFIG")
-        rank_sel =[int(config['links_slider']), int(config['alexa_slider']),int(config['p_rank_slider']),
-        int(config['in_slider']),int(config['out_slider']),int(config['self_slider'])] 
+    if "config" in session:
+        config = session["config"] 
     else:
-        config = {'neg_domains':'','pos_domains':'', 'links_slider':'40','alexa_slider':'40', 'p_rank_slider':'40',
-                'in_slider':'0','out_slider':'0','self_slider':'0'}   
-    if request.form.getlist('config'):
-        rank_sel = [int(slider_form.data['links_slider']), int(slider_form.data['alexa_slider']), 
-        int(slider_form.data['p_rank_slider']),int(slider_form.data['in_slider']),
-        int(slider_form.data['out_slider']),int(slider_form.data['self_slider'])]
-        config = json.loads(slider_form.data['config'].replace("'",'"'), object_hook=ascii_encode_dict)
+        config = {'neg_domains':[],'pos_domains':[], 'links_slider':'40','alexa_slider':'40', 'p_rank_slider':'40',
+                'in_slider':'0','out_slider':'0','self_slider':'0'} 
+    rank_sel =[int(config['links_slider']), int(config['alexa_slider']),int(config['p_rank_slider']),
+        int(config['in_slider']),int(config['out_slider']),int(config['self_slider'])]          
+    #add pos domain 
+    if pos_form.data["add_pos_domain"]:
+        domain = pos_form.data["add_pos_domain"]        
+        if domain not in config["pos_domains"]+config["neg_domains"]:
+            config['pos_domains'].append(domain)
+    #add neg domain
+    if neg_form.data["add_neg_domain"]:
+        domain = neg_form.data["add_neg_domain"]        
+        if domain not in config["pos_domains"]+config["neg_domains"]:
+            config['neg_domains'].append(domain)
+    #delete pos domain   
+    if pos_form.data["del_pos_domain"]:
+        domain = pos_form.data["del_pos_domain"]
+        config['pos_domains'].remove(domain)
+    #delete neg domain  
+    if neg_form.data["del_neg_domain"]:
+        domain = neg_form.data["del_neg_domain"]
+        config['neg_domains'].remove(domain)         
+    #sliders change 
+    if sliders_form.data['links_slider']:
+        rank_sel = [int(sliders_form.data['links_slider']), int(sliders_form.data['alexa_slider']), 
+        int(sliders_form.data['p_rank_slider']),int(sliders_form.data['in_slider']),
+        int(sliders_form.data['out_slider']),int(sliders_form.data['self_slider'])]
         config['links_slider']=str(rank_sel[0])
         config['alexa_slider']=str(rank_sel[1])
         config['p_rank_slider']=str(rank_sel[2])
         config['in_slider']=str(rank_sel[3])
         config['out_slider']=str(rank_sel[4])
         config['self_slider']=str(rank_sel[5])        
-    if request.form.getlist('add_pos_domain') or request.form.getlist('pos_domains') or \
-       request.form.getlist('del_pos_domain') or request.form.getlist('add_neg_domain') or \
-       request.form.getlist('neg_domains') or request.form.getlist('del_neg_domain'):
-        config = mod_config(request.form)
-        rank_sel =[int(config['links_slider']), int(config['alexa_slider']),int(config['p_rank_slider']),
-        int(config['in_slider']),int(config['out_slider']),int(config['self_slider'])]
-    #process slider request or other process requests 
-    #config = {'neg_domains':'cnn.com','pos_domains':'fox.com'}    
-    data = []
-    graph = []
-    cache.set("CONFIG",config)
-    if config['pos_domains'] != '' or config['neg_domains'] != '':        
-        if config['pos_domains'] != '':
-            pos_domains = '"'+'", "'.join(config['pos_domains'].split(", "))+'"'
-        else:
-            pos_domains = '1'            
-        if config['neg_domains'] != '':
-            neg_domains = '"'+'", "'.join(config['neg_domains'].split(", "))+'"'
-        else:
-            neg_domains = '1'
-        joined_domains = '"'+'", "'.join(config['pos_domains'].split(", ")+config['neg_domains'].split(", "))+'"'
-        print joined_domains 
-        data, graph = query_db(db, pos_domains, neg_domains, joined_domains, np.array(rank_sel)/float(sum(rank_sel)))                 
-        #data = pos_data
+    session["config"] = config
+    if len(config['neg_domains']) == 0 and len(config['pos_domains']) == 0:     
         return render_template('search.html',
-            add_form = add_form,
-            slider_form = slider_form,
-            all_domains = all_domains,
-            config = config,
-            data = data,
-            graph = graph)  
+                pos_form = pos_form,
+                neg_form = neg_form,
+                sliders_form = sliders_form,
+                all_domains = all_domains,
+                config = config)
+
+    arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes = query_db(db, config["pos_domains"], config["neg_domains"])
+    data, graph = process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, config["pos_domains"], config["neg_domains"], np.array(rank_sel)/float(sum(rank_sel)))                 
     return render_template('search.html',
-        add_form = add_form,
-        slider_form = slider_form,
+        pos_form = pos_form,
+        neg_form = neg_form,
+        sliders_form = sliders_form,
         all_domains = all_domains,
-        config = config)
+        config = config,
+        data = data,
+        graph = graph)  
 
 @app.route('/explore')
 def explore():
@@ -95,7 +98,7 @@ def explore():
 def table():
     # Renders table.html.
     #connect db
-    db = connect_db(remote = 1)
+    db = connect_db(remote = 0)
     db.execute('USE news_graph')  
     #get list of all domains
     sql_q = ''' SELECT * from nodes
@@ -119,54 +122,7 @@ def author():
 
 
 
-#extract config from proper requests
-def mod_config(r):
-    pos_req1 = r.getlist('add_pos_domain')
-    pos_req2 = r.getlist('pos_domains')
-    pos_req3 = r.getlist('del_pos_domain')    
-    neg_req1= r.getlist('add_neg_domain')
-    neg_req2 = r.getlist('neg_domains')
-    neg_req3 = r.getlist('del_neg_domain')
-    if len(pos_req3) != 0:
-        config = json.loads(pos_req3[0].replace("'",'"'), object_hook=ascii_encode_dict)
-        pos_domains = config['pos_domains']
-        pos_delete = config['pos_delete']
-        p2 = pos_domains.split(", ")
-        p2.remove(pos_delete)
-        config['pos_domains'] = ", ".join(p2)
-        config.pop('pos_delete')
-        return config
-    if len(neg_req3) != 0:
-        config = json.loads(neg_req3[0].replace("'",'"'), object_hook=ascii_encode_dict)
-        neg_domains = config['neg_domains']
-        neg_delete = config['neg_delete']
-        p2 = neg_domains.split(", ")
-        p2.remove(neg_delete)
-        config['neg_domains'] = ", ".join(p2)
-        config.pop('neg_delete')        
-        return config   
-    if len(pos_req1) != 0:
-        domain = pos_req1[0].encode()
-        config = json.loads(pos_req2[0].replace("'",'"'), object_hook=ascii_encode_dict)
-        joined_domains = config["pos_domains"].replace('"','').split(", ")+config["neg_domains"].replace('"','').split(", ")
-        if domain in joined_domains:
-            pass 
-        elif config['pos_domains'] == '':
-            config['pos_domains'] = domain
-        else:
-            config['pos_domains'] = config['pos_domains'] + ', '+ domain            
-        return config
-    if len(neg_req1) != 0:
-        domain = neg_req1[0].encode()
-        config = json.loads(neg_req2[0].replace("'",'"'), object_hook=ascii_encode_dict)
-        joined_domains = config["pos_domains"].replace('"','').split(", ")+config["neg_domains"].replace('"','').split(", ")  
-        if domain in joined_domains:
-            pass 
-        elif config['neg_domains'] == '':
-            config['neg_domains'] = domain
-        else:
-            config['neg_domains'] = config['neg_domains'] + ', '+ domain   
-        return config
+#additional functions
 
 #convert UTF json to ascii json
 def ascii_encode_dict(data):
@@ -185,18 +141,21 @@ def connect_db(remote):
 
 
 #queryDB
-def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
+def query_db(db, pos_domains, neg_domains):
+    pos_domains_str = '"'+'", "'.join(pos_domains+["1"])+'"'
+    neg_domains_str = '"'+'", "'.join(neg_domains+["1"])+'"'
+    joined_domains_str = '"'+'", "'.join(pos_domains + neg_domains+["1"])+'"'
     #get all the relevant arcs
-    sql_q = '''SELECT DISTINCT arc_id, source, target, weight_n1 from arcs join (SELECT node_id FROM nodes WHERE label IN (''' +joined_domains+''')) as A ON arcs.source = A.node_id OR arcs.target = A.node_id'''      
+    sql_q = '''SELECT DISTINCT arc_id, source, target, weight_n1 from arcs join (SELECT node_id FROM nodes WHERE label IN (''' +joined_domains_str+''')) as A ON arcs.source = A.node_id OR arcs.target = A.node_id'''      
     db.execute(sql_q)    
     arcs = db.fetchall()
     #get all the relevant pos nodes
-    sql_q = '''SELECT * from nodes WHERE label IN (''' +pos_domains+''') 
+    sql_q = '''SELECT * from nodes WHERE label IN (''' +pos_domains_str+''') 
         ORDER BY alexa ASC'''      
     db.execute(sql_q)    
     sel_pos_nodes = db.fetchall()
     #get all the relevant neg nodes
-    sql_q = '''SELECT * from nodes WHERE label IN (''' +neg_domains+''') 
+    sql_q = '''SELECT * from nodes WHERE label IN (''' +neg_domains_str+''') 
         ORDER BY alexa ASC'''      
     db.execute(sql_q)    
     sel_neg_nodes = db.fetchall()
@@ -209,13 +168,13 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
                     (SELECT source as col, weight_n2 from arcs
                         JOIN 
                         (SELECT node_id FROM nodes WHERE label IN (
-                             ''' +pos_domains+''')) as A 
+                             ''' +pos_domains_str+''')) as A 
                         ON arcs.target = A.node_id
                     ) UNION
                     (SELECT target as col, weight_n2 from arcs
                         JOIN 
                         (SELECT node_id FROM nodes WHERE label IN (
-                             ''' +pos_domains+''')) as B 
+                             ''' +pos_domains_str+''')) as B 
                         ON arcs.source = B.node_id
                     )) as T
                     GROUP BY col
@@ -223,7 +182,7 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
                 on nodes.node_id = E.col
                 ORDER BY amount DESC
                 LIMIT 100) as G 
-            WHERE label NOT IN ('''+joined_domains+ '''))
+            WHERE label NOT IN ('''+joined_domains_str+ '''))
             UNION
             (SELECT * from (
                 SELECT * from nodes 
@@ -232,13 +191,13 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
                     (SELECT source as col, weight_n2 from arcs
                         JOIN 
                         (SELECT node_id FROM nodes WHERE label IN (
-                             ''' +neg_domains+''')) as A 
+                             ''' +neg_domains_str+''')) as A 
                         ON arcs.target = A.node_id
                     ) UNION
                     (SELECT target as col, weight_n2 from arcs
                         JOIN 
                         (SELECT node_id FROM nodes WHERE label IN (
-                             ''' +neg_domains+''')) as B 
+                             ''' +neg_domains_str+''')) as B 
                         ON arcs.source = B.node_id
                     )) as T
                     GROUP BY col
@@ -246,7 +205,7 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
                 on nodes.node_id = E.col
                 ORDER BY amount ASC
                 LIMIT 10000) as G 
-            WHERE label NOT IN ('''+joined_domains+ '''))
+            WHERE label NOT IN ('''+joined_domains_str+ '''))
             ) as j
             GROUP BY node_id,label,alexa,location,n_out,n_in,w_out,w_in,w_diff,w_self,p_rank
             ORDER BY am DESC
@@ -254,8 +213,12 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
     db.execute(sql_q)
     out = db.fetchall()    
     rec_nodes= np.array(out)
+    return arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes
+
+#generate recommended list and subgraph
+def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_domains, rank_sel):
     #create number of links column
-    rec_joined = np.ones((len(rec_nodes), 1))/10.0
+    rec_joined = np.ones((len(rec_nodes),1))/10.0
     h = len(rec_joined)
     rec_joined = np.append(rec_joined,rec_nodes,axis=1)
     #renormalizing values
@@ -282,7 +245,6 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
     else:
         #r1 = np.array((np.array([i if i>0 else 0 for i in r])+max(r.tolist())*0.1).tolist())    
         r2 = r#(r-min(r))/(max(r)-min(r))
-    print r2
     #pdb.set_trace()
     #pdb.set_trace() 
     #combine arrays
@@ -309,7 +271,7 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
     i = 0
     recs = []
     for node_id,label,alexa,location,n_out,n_in,w_out,w_in,w_diff,w_self,p_rank, w_conn,rec in data_sorted:   
-        if label not in joined_domains.replace('"','').split(", "):        
+        if label not in pos_domains+neg_domains:        
             i = i + 1
             recs.append(float(rec))
             if i == 20: break          
@@ -318,15 +280,14 @@ def query_db(db, pos_domains, neg_domains, joined_domains, rank_sel):
     i = 0
     for node_id,label,alexa,location,n_out,n_in,w_out,w_in,w_diff,w_self,p_rank, w_conn,rec in data_sorted:
         #only recommend domains not in the joined domain list        
-        if label not in joined_domains.replace('"','').split(", "):
+        if label not in pos_domains+neg_domains:
             i = i + 1
             node_ids.append(str(node_id))
             #shade all the recommendation if no pos_domains
-            if len(pos_domains) == 1 and pos_domains[0] == '1':
+            if len(pos_domains) == 0:
                 rec_col = 0.01
             else:
                 rec_col = (float(rec)-min(recs))/(max(recs)-min(recs))
-                print rec_col
             col = "#"+str(int(10-float(rec_col)*10.0))+str(int(10-float(rec_col)*10.0))+"F"
             graph["nodes"].append({"id":str(node_id),"label":label,"x":random.randint(-100,100), "y":random.randint(-100,100),"size":(max_size-min_size)*float(rec_col)+min_size, "color":col})
             if i == 20: break   

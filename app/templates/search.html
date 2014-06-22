@@ -16,24 +16,21 @@
                 </div>
                 <div class="panel-body">
                     <form role="form" action="/search" method="post" name="edit">
-                    {{add_form.hidden_tag()}}
+                    {{pos_form.hidden_tag()}}
                         <div class="form-group">
-                            {{add_form.add_pos_domain(size=50, class="form-control", autocomplete='off', value="", id="add_pos_domain", **{'data-provide':'typeahead'})}}
-		            {{add_form.pos_domains(size=150, class="form-control", type='hidden', autocomplete='off', value = config)}}
+                            {{pos_form.add_pos_domain(size=50, class="form-control", autocomplete='off', value="", id="add_pos_domain", **{'data-provide':'typeahead'})}}
                         </div>
                         <button type="submit" class="btn btn-default" value='submit'><span class="glyphicon glyphicon-plus"></span> Add</button>
                     </form>
               	</div>
 	            {% if config['pos_domains'] %}
 	            <div class="panel-body" style="height:inherit;overflow:auto">
-		            {%for line in config['pos_domains'].split(", ") %}
-		            {% set _dummy = config.update({'pos_delete':line}) %}
+		            {%for line in config['pos_domains'] %}
 		            <form class="form" role="form" action="/search" method="post" name="pos">
-		            {{add_form.del_pos_domain(size=10, class="form-control", type='hidden', autocomplete='off', value = config)}}		
+		            {{pos_form.del_pos_domain(size=10, class="form-control", type='hidden', autocomplete='off', value = line)}}		
 		            <button type="submit" class="btn btn-success" value="submit" style="font-size: 15px; margin-top: 5px">{{line}}<span class="glyphicon glyphicon-remove" style="font-size: 1.3em; vertical-align:middle; margin-left: 10px"></span></button>
 		            </form>
 		            {% endfor %}
-                    {% set _dummy = config.update({'pos_delete':''}) %}
 	            </div>
 	            {% endif %}
             </div>
@@ -46,24 +43,21 @@
                 </div>
                 <div class="panel-body">
                     <form role="form" action="/search" method="post" name="edit">
-                    {{add_form.hidden_tag()}}
+                    {{neg_form.hidden_tag()}}
                         <div class="form-group">
-                            {{add_form.add_neg_domain(size=50, class="form-control", autocomplete='off', value="", id="add_neg_domain", **{'data-provide':'typeahead'})}}
-		            {{add_form.neg_domains(size=150, class="form-control", type='hidden', autocomplete='off', value = config)}}
+                            {{neg_form.add_neg_domain(size=50, class="form-control", autocomplete='off', value="", id="add_neg_domain", **{'data-provide':'typeahead'})}}
                         </div>
                         <button type="submit" class="btn btn-default" value='submit'><span class="glyphicon glyphicon-plus"></span> Add</button>
                     </form>
               	</div>
 	            {% if config['neg_domains'] %}
 	            <div class="panel-body" style="height:inherit;overflow:auto">
-		            {%for line in config['neg_domains'].split(", ") %}
-		            {% set _dummy = config.update({'neg_delete':line}) %}
+		            {%for line in config['neg_domains'] %}
 		            <form class="form" role="form" action="/search" method="post" name="neg">
-		            {{add_form.del_neg_domain(size=10, class="form-control", type='hidden', autocomplete='off', value = config )}}		
+		            {{neg_form.del_neg_domain(size=10, class="form-control", type='hidden', autocomplete='off', value = line )}}		
 		            <button type="submit" class="btn btn-danger" value="submit" style="font-size: 15px; margin-top: 5px">{{line}}<span class="glyphicon glyphicon-remove" style="font-size: 1.3em; vertical-align:middle; margin-left: 10px"></span></button>
 		            </form>
 		            {% endfor %}
-                    {% set _dummy = config.update({'pos_delete':''}) %}
 	            </div>
 	            {% endif %}
             </div>
@@ -79,15 +73,14 @@
                     <div class="row"  id ="sliders" style="visibility: hidden">
                       <form role="form" id="sliders_form" action="/search" method="post" name="slider">  
                         <div class="col-md-6">    
-                    Edge weights:<br><div style="margin-bottom:15px">10%{{slider_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Alexa rank:<br><div style="margin-bottom:15px">0%{{slider_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Page rank:<br><div style="margin-bottom:15px">0%{{slider_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                        {{slider_form.config(size=150, class="form-control", type='hidden', autocomplete='off', value = config)}}          
+                    Edge weights:<br><div style="margin-bottom:15px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Alexa rank:<br><div style="margin-bottom:15px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Page rank:<br><div style="margin-bottom:15px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
                         </div>
                         <div class="col-md-6">
-                    In Degree:<br><div style="margin-bottom:15px">0%{{slider_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Out Degree:<br><div style="margin-bottom:15px">0%{{slider_form.out_slider(id ='out_slider', class='span2', size=15, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Self Degree:<br><div style="margin-bottom:15px">0%{{slider_form.self_slider(id ='self_slider', class='span2', size=15, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    In Degree:<br><div style="margin-bottom:15px">0%{{sliders_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Out Degree:<br><div style="margin-bottom:15px">0%{{sliders_form.out_slider(id ='out_slider', class='span2', size=15, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Self Degree:<br><div style="margin-bottom:15px">0%{{sliders_form.self_slider(id ='self_slider', class='span2', size=15, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
                         </div>
                         </form>            
                     </div>
