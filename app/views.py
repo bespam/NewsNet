@@ -8,11 +8,10 @@ import math, random
 from sets import Set
 import numpy as np
 
-
-# ROUTING/VIEW FUNCTIONS
+#remote = 1 for remote deployment
 remote = 1
 
-
+# ROUTING/VIEW FUNCTIONS
 @app.route('/')
 @app.route('/index')
 @app.errorhandler(500)

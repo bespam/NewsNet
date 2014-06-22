@@ -218,7 +218,7 @@ $('#add_neg_domain').typeahead({
     s.configForceAtlas2({edgeWeightInfluence: 0.5, gravity:0.1,adjustSized: true, slowDown: 10})
     s.startForceAtlas2();
 	// run for max 2 sec
-	//setTimeout(function() { s.stopForceAtlas2(); }, 2000);
+	setTimeout(function() { s.stopForceAtlas2(); }, 2000);
 
 
 {% endif %}
