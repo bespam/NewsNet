@@ -10,6 +10,8 @@ import numpy as np
 
 
 # ROUTING/VIEW FUNCTIONS
+remote = 1
+
 
 @app.route('/')
 @app.route('/index')
@@ -18,7 +20,7 @@ import numpy as np
 @app.route('/search', methods = ['GET', 'POST'])
 def search():
     # Renders index.html.
-    db = connect_db(remote = 0)
+    db = connect_db(remote = remote)
     #connect db
     db.execute('USE news_graph')
     
@@ -98,7 +100,7 @@ def explore():
 def table():
     # Renders table.html.
     #connect db
-    db = connect_db(remote = 0)
+    db = connect_db(remote = remote)
     db.execute('USE news_graph')  
     #get list of all domains
     sql_q = ''' SELECT * from nodes
