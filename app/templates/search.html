@@ -9,7 +9,7 @@
 <div class="col-md-4" style="padding:0px;padding-left:20px;height:100%">
     <div class="panel panel-primary panel-info"  style="margin:0px;height:60%">
     <div class="panel-heading" style="margin:0px">
-         <h3 class="panel-title"><b style="font-size:120%">Find me news-domains:</b></h3>
+         <h3 class="panel-title"><b style="font-size:110%">News-websites finder:</b></h3>
     </div>
     <div class="panel-body" style="margin:0px;height:100%;padding:0px">
         <div class = "row" style="height:100%">
@@ -17,7 +17,7 @@
                 <!-- Like field -->
                 <div class="panel panel-primary panel-success"  style="margin:0px;height: 100%">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Like these domains</h3>
+                        <h3 class="panel-title">Like these websites</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="/search" method="post" name="edit">
@@ -44,7 +44,7 @@
             <div class="col-md-6" style="padding-top:0px;padding-left:0px;;height:100%">
                 <div class="panel panel-primary panel-danger"  style="margin:0px;height:100%">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Unlike these domains</h3>
+                        <h3 class="panel-title">Unlike these websites</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="/search" method="post" name="edit">
@@ -80,29 +80,30 @@
                     <div class="row"  id ="sliders" style="visibility: hidden">
                       <form role="form" id="sliders_form" action="/search" method="post" name="slider">  
                         <div class="col-md-6">    
-                    Edge weights:<br><div style="margin-bottom:15px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Alexa rank:<br><div style="margin-bottom:15px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Page rank:<br><div style="margin-bottom:15px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
+                    Edge weights:<br><div style="margin-bottom:5px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Alexa rank:<br><div style="margin-bottom:5px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Page rank:<br><div style="margin-bottom:5px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
                         </div>
                         <div class="col-md-6">
-                    In Degree:<br><div style="margin-bottom:15px">0%{{sliders_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Out Degree:<br><div style="margin-bottom:15px">0%{{sliders_form.out_slider(id ='out_slider', class='span2', size=15, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Self Degree:<br><div style="margin-bottom:15px">0%{{sliders_form.self_slider(id ='self_slider', class='span2', size=15, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    In Degree:<br><div style="margin-bottom:5px">0%{{sliders_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Out Degree:<br><div style="margin-bottom:5px">0%{{sliders_form.out_slider(id ='out_slider', class='span2', size=15, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Self Degree:<br><div style="margin-bottom:5px">0%{{sliders_form.self_slider(id ='self_slider', class='span2', size=15, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
                         </div>
-                        </form>            
+                        </form>           
                     </div>
+                    <button type="button" id ="restore_sliders" class="btn btn-default">Default weights</button> 
                 </div>
             </div>
         </div>
     </div>   
 </div>
-{% if data %}
 <div class="col-md-8" style="padding:0px;padding-right:20px;padding-left:20px;height:100%">
 <!-- Output -->
     <div class="panel panel-primary"  style="margin:0px;height:95%">
         <div class="panel-heading">
-            <h3 class="panel-title">Recommended domains</h3>
+            <h3 class="panel-title">Top 20 recommended websites </h3>
         </div>
+        {% if data %}
         <div class="panel-body" style="margin:0px;height:37%;overflow:auto">
             <table class="table table-hover" style="text-align:left">
                 <tr>
@@ -134,8 +135,23 @@
         <div class="panel-body" style="margin:0px;height:100%; overflow:auto">
             <div id="graph-container" style="width:100%;height:58%;border-top:1px;border-top-style:solid;border-color:#428bca"></div>         
         </div>
+        {% endif %}
+        {% if not data %}
+            <div class="panel-body" style="font-size:120%">
+                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> No "Like these" or "Unlike these" websites are currently selected.</div>
+                <div class="well well-lg">
+                <div class="alert alert-warning">Please follow the instructions:</div>
+                <div class="alert alert-info">1: To start please enter website of interest to the "Like these" text field in the green panel</div>
+                <div class="alert alert-info">2: You can also add "Unlike these" websites to the text field in the red panel</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-info-sign"></span> More than one website can be added in each of the panels</div>
+                <div class="alert alert-info">3: Advanced users can also ballance  the recommendation by changing the metric weights</div>
+                <div class="alert alert-info">4: Explore Full Graph page is available to browse the full news-websites graph</div>
+                <div class="alert alert-info">5: View Data Table page lists all the graph nodes and metric parameters</div>
+                </div>
+            </div>
+        {% endif %}
     </div>
-{% endif %}
+
 </div>
 </div>
 {% endblock %}
@@ -193,6 +209,20 @@ $('#add_pos_domain').typeahead({
 });
 $('#add_neg_domain').typeahead({
     source: {{all_domains|tojson}}
+});
+
+// restore default weights
+$(document).ready(function(){
+    $('#restore_sliders').button();
+    $("#restore_sliders").click(function() {
+        $('#links_slider').slider('setValue','40')
+        $('#alexa_slider').slider('setValue','40')
+        $('#p_rank_slider').slider('setValue','40')
+        $('#in_slider').slider('setValue','0')
+        $('#out_slider').slider('setValue','0')
+        $('#self_slider').slider('setValue','0')
+        $('#sliders_form').submit()     
+    });
 });
 // Graph
  // these are just some preliminary settings
