@@ -9,7 +9,7 @@ from sets import Set
 import numpy as np
 
 #remote = 1 for remote deployment
-remote = 0
+remote = 1
 
 # ROUTING/VIEW FUNCTIONS
 @app.route('/')
