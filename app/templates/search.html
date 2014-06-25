@@ -84,8 +84,8 @@ border-left: none;
                       <form role="form" id="sliders_form" action="/search" method="post" name="slider">  
                         <div class="col-md-6">    
                     Edge weights:<br><div style="margin-bottom:4px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Alexa rank:<br><div style="margin-bottom:4px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Page rank:<br><div style="margin-bottom:4px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
+                    Alexa rank (Traffic):<br><div style="margin-bottom:4px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Page rank (Reach):<br><div style="margin-bottom:4px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
                         </div>
                         <div class="col-md-6">
                     In Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
@@ -141,13 +141,12 @@ border-left: none;
         {% endif %}
         {% if not data %}
             <div class="panel-body" style="font-size:120%">
-                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> No "Like these" or "Unlike these" websites are currently selected.</div>
                 <div class="well well-lg">
                 <div class="alert alert-warning">Please follow the instructions:</div>
                 <div class="alert alert-info">1: To start please enter website of interest to the "Like these" text field in the green panel</div>
-                <div class="alert alert-info">2: You can also add "Unlike these" websites to the text field in the red panel</div>
-                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-info-sign"></span> More than one website can be added in each of the panels</div>
-                <div class="alert alert-info">3: Advanced users can also ballance  the recommendation by changing the metric weights</div>
+                <div class="alert alert-info">2: You can also add "Unlike these" website to the text field in the red panel</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-info-sign"></span> More than one website can be added to the green and red panels</div>
+                <div class="alert alert-info">3: Advanced users can also ballance the recommendation toward more popular or more connected by changing the weights of each node metric to be used in the recommendation</div>
                 <div class="alert alert-info">4: Explore Full Graph page is available to browse the full news-websites graph</div>
                 <div class="alert alert-info">5: View Data Table page lists all the graph nodes and metric parameters</div>
                 </div>
