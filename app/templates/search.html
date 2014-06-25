@@ -2,10 +2,13 @@
 
 {% block head %}
 <link href="{{ url_for('static', filename='css/slider.css') }}" rel="stylesheet">
+table td:first-child {
+border-left: none;
+}
 {% endblock %}
 
 {% block content %}
-<div class="row" style="margin-top:4%; height:95%">
+<div class="row" style="margin-top:3%;height:95%">
 <div class="col-md-4" style="padding:0px;padding-left:20px;height:100%">
     <div class="panel panel-primary panel-info"  style="margin:0px;height:60%">
     <div class="panel-heading" style="margin:0px">
@@ -76,22 +79,22 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Select effect of each metric on recommender</h3>
                 </div>
-                <div class="panel-body" style="height:100%">
+                <div class="panel-body" style="height:100%" style="display:none">
                     <div class="row"  id ="sliders" style="visibility: hidden">
                       <form role="form" id="sliders_form" action="/search" method="post" name="slider">  
                         <div class="col-md-6">    
-                    Edge weights:<br><div style="margin-bottom:5px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Alexa rank:<br><div style="margin-bottom:5px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Page rank:<br><div style="margin-bottom:5px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
+                    Edge weights:<br><div style="margin-bottom:4px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Alexa rank:<br><div style="margin-bottom:4px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Page rank:<br><div style="margin-bottom:4px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
                         </div>
                         <div class="col-md-6">
-                    In Degree:<br><div style="margin-bottom:5px">0%{{sliders_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Out Degree:<br><div style="margin-bottom:5px">0%{{sliders_form.out_slider(id ='out_slider', class='span2', size=15, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Self Degree:<br><div style="margin-bottom:5px">0%{{sliders_form.self_slider(id ='self_slider', class='span2', size=15, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    In Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Out Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.out_slider(id ='out_slider', class='span2', size=15, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Self Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.self_slider(id ='self_slider', class='span2', size=15, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
                         </div>
                         </form>           
                     </div>
-                    <button type="button" id ="restore_sliders" class="btn btn-default">Default weights</button> 
+                    <button type="button" id ="restore_sliders" class="btn btn-default">Restore default weights</button> 
                 </div>
             </div>
         </div>
@@ -104,36 +107,36 @@
             <h3 class="panel-title">Top 20 recommended websites </h3>
         </div>
         {% if data %}
-        <div class="panel-body" style="margin:0px;height:37%;overflow:auto">
+        <div class="panel-body" style="margin:0px;height:40%;overflow:auto">
             <table class="table table-hover" style="text-align:left">
                 <tr>
-                  <th>Domain</th>
-                  <th>Location</th>
-                  <th>Edge weights</th>   
-                  <th>Alexa rank</th>
-                  <th>PageRank</th>
-                  <th>In Degree</th>
-                  <th>Out Degree</th>
-                  <th>Self Degree</th>
-                  <th>Score</th>
+                  <th style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">Rank</th>
+                  <th style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">Domain</th>
+                  <th style="background-color:#E8E8E8">Location</th>
+                  <th style="background-color:#E8E8E8">Edge weights</th>   
+                  <th style="background-color:#E8E8E8">Alexa rank</th>
+                  <th style="background-color:#E8E8E8">PageRank</th>
+                  <th style="background-color:#E8E8E8">In Degree</th>
+                  <th style="background-color:#E8E8E8">Out Degree</th>
+                  <th style="background-color:#E8E8E8">Self Degree</th>
                 </tr>
                 {%for line in data%}
                 <tr>
-                  <td>{{line[1]}}</td>
-                  <td>{{line[3]}}</td>
-                  <td>{{"%.3f" % line[11]|float}}</td> 
-                  <td>{{line[2]}}</td>
-                  <td>{{"%.5f" % line[10]|float}}</td>
-                  <td>{{line[7]}}</td>
-                  <td>{{line[6]}}</td>
-                  <td>{{line[9]}}</td>
-                  <td>{{"%.4f" % line[12]|float}}</td>
+                  <td style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[12]}}</td>
+                  <td style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[1]}}</td>
+                  <td style="background-color:#E8E8E8">{{line[3]}}</td>
+                  <td style="background-color:#E8E8E8">{{"%.3f" % line[11]|float}}</td> 
+                  <td style="background-color:#E8E8E8">{{line[2]}}</td>
+                  <td style="background-color:#E8E8E8">{{"%.5f" % line[10]|float}}</td>
+                  <td style="background-color:#E8E8E8">{{line[7]}}</td>
+                  <td style="background-color:#E8E8E8">{{line[6]}}</td>
+                  <td style="background-color:#E8E8E8">{{line[9]}}</td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
         <div class="panel-body" style="margin:0px;height:100%; overflow:auto">
-            <div id="graph-container" style="width:100%;height:58%;border-top:1px;border-top-style:solid;border-color:#428bca"></div>         
+            <div id="graph-container" style="width:100%;height:55%;border-top:1px;border-top-style:solid;border-color:#428bca"></div>         
         </div>
         {% endif %}
         {% if not data %}
@@ -215,12 +218,12 @@ $('#add_neg_domain').typeahead({
 $(document).ready(function(){
     $('#restore_sliders').button();
     $("#restore_sliders").click(function() {
-        $('#links_slider').slider('setValue','40')
-        $('#alexa_slider').slider('setValue','40')
-        $('#p_rank_slider').slider('setValue','40')
-        $('#in_slider').slider('setValue','0')
-        $('#out_slider').slider('setValue','0')
-        $('#self_slider').slider('setValue','0')
+        $('#links_slider').attr('value','40')
+        $('#alexa_slider').attr('value','40')
+        $('#p_rank_slider').attr('value','40')
+        $('#in_slider').attr('value','0')
+        $('#out_slider').attr('value','0')
+        $('#self_slider').attr('value','0')
         $('#sliders_form').submit()     
     });
 });

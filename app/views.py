@@ -29,6 +29,7 @@ def search():
     db.execute(sql_q)    
     tuples = db.fetchall()    
     all_domains = [{'name':v[0]} for v in tuples]
+    all_domains_list = [x['name'] for x in all_domains]
     #generate forms    
     pos_form = PosForm(csrf_enabled = False)
     neg_form = NegForm(csrf_enabled = False)
@@ -44,12 +45,12 @@ def search():
     #add pos domain 
     if pos_form.data["add_pos_domain"]:
         domain = pos_form.data["add_pos_domain"]        
-        if domain not in config["pos_domains"]+config["neg_domains"]:
+        if domain not in config["pos_domains"]+config["neg_domains"] and domain in all_domains_list:
             config['pos_domains'].append(domain)
     #add neg domain
     if neg_form.data["add_neg_domain"]:
         domain = neg_form.data["add_neg_domain"]        
-        if domain not in config["pos_domains"]+config["neg_domains"]:
+        if domain not in config["pos_domains"]+config["neg_domains"] and domain in all_domains_list:
             config['neg_domains'].append(domain)
     #delete pos domain   
     if pos_form.data["del_pos_domain"]:
@@ -253,7 +254,7 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
     #pdb.set_trace()    
     #sort on the rank
     data_sorted = sorted(np.array(data), key = lambda x: -float(x[12]))
-    
+
     #generate graph
     graph = {"nodes":[], "edges":[]}
     node_ids = []
@@ -289,7 +290,8 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
                 rec_col = 0.01
             else:
                 rec_col = (float(rec)-min(recs))/(max(recs)-min(recs))
-            col = "#"+str(int(10-float(rec_col)*10.0))+str(int(10-float(rec_col)*10.0))+"F"
+            col = "#"+str(int(9-float(rec_col)*9.0))+str(int(9-float(rec_col)*9.0))+"F"
+            print col
             graph["nodes"].append({"id":str(node_id),"label":label,"x":random.randint(-100,100), "y":random.randint(-100,100),"size":(max_size-min_size)*float(rec_col)+min_size, "color":col})
             if i == 20: break   
     
@@ -298,6 +300,10 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
         if str(source) in node_ids and str(target) in node_ids:
             graph["edges"].append({"id":str(arc_id),"source":str(source),"target":str(target), 
             "weight":float(weight_n2), "type":"curvedArrow"})     
+    
+    #change score to rank
+    for i in range(20):    
+        data_sorted[i][12]=i+1
     return data_sorted[0:20], graph
 
 
