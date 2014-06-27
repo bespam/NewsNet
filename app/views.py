@@ -7,9 +7,8 @@ import pdb
 import math, random
 from sets import Set
 import numpy as np
+import colorsys
 
-#remote = 1 for remote deployment
-remote = 1
 
 # ROUTING/VIEW FUNCTIONS
 @app.route('/')
@@ -19,7 +18,8 @@ remote = 1
 @app.route('/search', methods = ['GET', 'POST'])
 def search():
     # Renders index.html.
-    db = connect_db(remote = remote)
+    conn = pymysql.connect(user=user, passwd=passwd, host=host, port=port)
+    db = conn.cursor()
     #connect db
     db.execute('USE news_graph')
     
@@ -99,8 +99,8 @@ def explore():
 @app.route('/table')
 def table():
     # Renders table.html.
-    #connect db
-    db = connect_db(remote = remote)
+    conn = pymysql.connect(user=user, passwd=passwd, host=host, port=port)
+    db = conn.cursor()
     db.execute('USE news_graph')  
     #get list of all domains
     sql_q = ''' SELECT * from nodes
@@ -130,17 +130,6 @@ def author():
 def ascii_encode_dict(data):
     ascii_encode = lambda x: x.encode('ascii')
     return dict(map(ascii_encode, pair) for pair in data.items())
-
-#connection to db
-def connect_db(remote):
-    if remote:
-        #remote
-        conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cv1io5wgnzkw.us-west-1.rds.amazonaws.com', port=3306)
-    else:
-        #local
-        conn = pymysql.connect(user='root', passwd='12345678', host='localhost')
-    return conn.cursor()
-
 
 #queryDB
 def query_db(db, pos_domains, neg_domains):
@@ -243,18 +232,16 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
     r = np.sum((rec_joined[:,[0,3,11,8,7,10]].astype('float')-rec_min)/(rec_max-rec_min)*rank_sel,1)*rec_joined[:,12].astype('float')
     #normalize final rank
     if max(r) <=0:
-        r2 = r*0.0
-    else:
-        #r1 = np.array((np.array([i if i>0 else 0 for i in r])+max(r.tolist())*0.1).tolist())    
-        r2 = r#(r-min(r))/(max(r)-min(r))
+        r = r*0.0
+    if len(r) == 1:
+        r = np.array([1.0])
     #pdb.set_trace()
     #pdb.set_trace() 
     #combine arrays
-    data = np.append(rec_nodes,np.matrix(r2).T,axis=1)
+    data = np.append(rec_nodes,np.matrix(r).T,axis=1)
     #pdb.set_trace()    
     #sort on the rank
     data_sorted = sorted(np.array(data), key = lambda x: -float(x[12]))
-
     #generate graph
     graph = {"nodes":[], "edges":[]}
     node_ids = []
@@ -286,11 +273,17 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
             i = i + 1
             node_ids.append(str(node_id))
             #shade all the recommendation if no pos_domains
+            #pdb.set_trace()
             if len(pos_domains) == 0:
                 rec_col = 0.01
             else:
-                rec_col = (float(rec)-min(recs))/(max(recs)-min(recs))
-            col = "#"+str(int(9-float(rec_col)*9.0))+str(int(9-float(rec_col)*9.0))+"F"
+                if max(recs) != min(recs):
+                    rec_col = (float(rec)-min(recs))/(max(recs)-min(recs))
+                else:
+                    rec_col = 1.0
+            #convert to colors
+            col = '#%02x%02x%02x' % (150*(1.0-rec_col),150*(1.0-rec_col),255)
+            #col = "#"+str(int(9-float(rec_col)*9.0))+str(int(9-float(rec_col)*9.0))+"F"
             print col
             graph["nodes"].append({"id":str(node_id),"label":label,"x":random.randint(-100,100), "y":random.randint(-100,100),"size":(max_size-min_size)*float(rec_col)+min_size, "color":col})
             if i == 20: break   
@@ -302,7 +295,7 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
             "weight":float(weight_n2), "type":"curvedArrow"})     
     
     #change score to rank
-    for i in range(20):    
+    for i in range(min(20,len(data_sorted))):    
         data_sorted[i][12]=i+1
     return data_sorted[0:20], graph
 

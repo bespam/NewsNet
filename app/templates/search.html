@@ -20,7 +20,7 @@ border-left: none;
                 <!-- Like field -->
                 <div class="panel panel-primary panel-success"  style="margin:0px;height: 100%">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Like these websites</h3>
+                        <h3 class="panel-title">Like these news-websites</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="/search" method="post" name="edit">
@@ -47,7 +47,7 @@ border-left: none;
             <div class="col-md-6" style="padding-top:0px;padding-left:0px;;height:100%">
                 <div class="panel panel-primary panel-danger"  style="margin:0px;height:100%">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Unlike these websites</h3>
+                        <h3 class="panel-title">Unlike these news-websites</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="/search" method="post" name="edit">
@@ -103,10 +103,10 @@ border-left: none;
 <div class="col-md-8" style="padding:0px;padding-right:20px;padding-left:20px;height:100%">
 <!-- Output -->
     <div class="panel panel-primary"  style="margin:0px;height:95%">
+        {% if data %}        
         <div class="panel-heading">
-            <h3 class="panel-title">Top 20 recommended websites </h3>
-        </div>
-        {% if data %}
+            <h3 class="panel-title">Top 20 recommended websites</h3>
+        </div>        
         <div class="panel-body" style="margin:0px;height:40%;overflow:auto">
             <table class="table table-hover" style="text-align:left">
                 <tr>
@@ -125,7 +125,7 @@ border-left: none;
                   <td style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[12]}}</td>
                   <td style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[1]}}</td>
                   <td style="background-color:#E8E8E8">{{line[3]}}</td>
-                  <td style="background-color:#E8E8E8">{{"%.3f" % line[11]|float}}</td> 
+                  <td style="background-color:#E8E8E8">{{"%.4f" % line[11]|float}}</td> 
                   <td style="background-color:#E8E8E8">{{line[2]}}</td>
                   <td style="background-color:#E8E8E8">{{"%.5f" % line[10]|float}}</td>
                   <td style="background-color:#E8E8E8">{{line[7]}}</td>
@@ -140,6 +140,9 @@ border-left: none;
         </div>
         {% endif %}
         {% if not data %}
+            <div class="panel-heading">
+                <h3 class="panel-title">Instructions</h3>
+            </div> 
             <div class="panel-body" style="font-size:120%">
                 <div class="well well-lg">
                 <div class="alert alert-warning">Please follow the instructions:</div>
