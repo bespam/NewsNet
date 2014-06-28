@@ -105,7 +105,7 @@ border-left: none;
     <div class="panel panel-primary"  style="margin:0px;height:95%">
         {% if data %}        
         <div class="panel-heading">
-            <h3 class="panel-title">Top 20 recommended websites</h3>
+            <h3 class="panel-title">Top 20 recommended news-websites</h3>
         </div>        
         <div class="panel-body" style="margin:0px;height:40%;overflow:auto">
             <table class="table table-hover" style="text-align:left">
@@ -124,13 +124,13 @@ border-left: none;
                 <tr>
                   <td style="font-size:115%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[12]}}</td>
                   <td style="font-size:115%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[1]}}</td>
-                  <td style="background-color:#E8E8E8">{{line[3]}}</td>
-                  <td style="background-color:#E8E8E8">{{"%.4f" % line[11]|float}}</td> 
-                  <td style="background-color:#E8E8E8">{{line[2]}}</td>
-                  <td style="background-color:#E8E8E8">{{"%.5f" % line[10]|float}}</td>
-                  <td style="background-color:#E8E8E8">{{line[7]}}</td>
-                  <td style="background-color:#E8E8E8">{{line[6]}}</td>
-                  <td style="background-color:#E8E8E8">{{line[9]}}</td>
+                  <td style="font-size:90%;background-color:#E8E8E8">{{line[3]}}</td>
+                  <td style="font-size:90%;background-color:#E8E8E8">{{"%.4f" % line[11]|float}}</td> 
+                  <td style="font-size:90%;background-color:#E8E8E8">{{line[2]}}</td>
+                  <td style="font-size:90%;background-color:#E8E8E8">{{"%.5f" % line[10]|float}}</td>
+                  <td style="font-size:90%;background-color:#E8E8E8">{{line[7]}}</td>
+                  <td style="font-size:90%;background-color:#E8E8E8">{{line[6]}}</td>
+                  <td style="font-size:90%;background-color:#E8E8E8">{{line[9]}}</td>
                 </tr>
                 {% endfor %}
             </table>
@@ -145,8 +145,8 @@ border-left: none;
             </div> 
             <div class="panel-body" style="font-size:120%">
                 <div class="well well-lg">
-                <div class="alert alert-warning">Please follow the instructions:</div>
-                <div class="alert alert-info">1: To start please enter website of interest to the "Like these" text field in the green panel</div>
+                <div class="alert alert-warning">News web-sites recommender:</div>
+                <div class="alert alert-info">1: Please enter website of interest to the "Like these" text field in the green panel</div>
                 <div class="alert alert-info">2: You can also add "Unlike these" website to the text field in the red panel</div>
                 <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-info-sign"></span> More than one website can be added to the green and red panels</div>
                 <div class="alert alert-info">3: Advanced users can also ballance the recommendation toward more popular or more connected websites by changing the weights of each node metric</div>

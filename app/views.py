@@ -11,16 +11,17 @@ import colorsys
 
 
 # ROUTING/VIEW FUNCTIONS
+#route root end errors to main recommender window (/search)
 @app.route('/')
-@app.route('/index')
+@app.route('/search', methods = ['GET', 'POST'])
 @app.errorhandler(500)
 @app.errorhandler(404)
-@app.route('/search', methods = ['GET', 'POST'])
 def search():
     # Renders index.html.
+
+    #connect db
     conn = pymysql.connect(user=user, passwd=passwd, host=host, port=port)
     db = conn.cursor()
-    #connect db
     db.execute('USE news_graph')
     
     #get list of all domains
@@ -40,7 +41,6 @@ def search():
     else:
         config = {'neg_domains':[],'pos_domains':[], 'links_slider':'40','alexa_slider':'40', 'p_rank_slider':'40',
                 'in_slider':'0','out_slider':'0','self_slider':'0'} 
-    print pos_form.data, neg_form.data, sliders_form.data, config    
     rank_sel =[int(config['links_slider']), int(config['alexa_slider']),int(config['p_rank_slider']),
         int(config['in_slider']),int(config['out_slider']),int(config['self_slider'])]          
     #add pos domain 
@@ -92,11 +92,13 @@ def search():
         data = data,
         graph = graph)  
 
+# route to full graph preview
 @app.route('/explore')
 def explore():
     # Renders explore.html.
     return render_template('explore.html')
 
+# route to table preview
 @app.route('/table')
 def table():
     # Renders table.html.
@@ -123,9 +125,6 @@ def author():
     # Renders author.html.
     return render_template('author.html')
 
-
-
-#additional functions
 
 #convert UTF json to ascii json
 def ascii_encode_dict(data):
@@ -216,7 +215,6 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
     #renormalizing values
     #inverse_alexa_ranking
     rec_joined[:,3] = max(rec_joined[:,3].astype('float'))/(rec_joined[:,3].astype('float'))   
-    #log norm
     rec_joined[:,11]=np.array(rec_joined[:,11].astype('float')/min(rec_joined[:,11].astype('float')))
     rec_joined[:,8]=np.array(rec_joined[:,8].astype('float')+1.0) 
     rec_joined[:,7]=np.array(rec_joined[:,7].astype('float')+1.0) 
@@ -229,18 +227,15 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
     rec_min[0] = 0.0
     rec_max[0] = 1.0    
     #combined rank
-    #pdb.set_trace()
     r = np.sum((rec_joined[:,[0,3,11,8,7,10]].astype('float')-rec_min)/(rec_max-rec_min)*rank_sel,1)*rec_joined[:,12].astype('float')
     #normalize final rank
     if max(r) <=0:
         r = r*0.0
     if len(r) == 1:
         r = np.array([1.0])
-    #pdb.set_trace()
-    #pdb.set_trace() 
     #combine arrays
     data = np.append(rec_nodes,np.matrix(r).T,axis=1)
-    #pdb.set_trace()    
+   
     #sort on the rank
     data_sorted = sorted(np.array(data), key = lambda x: -float(x[12]))
     #generate graph
@@ -256,7 +251,6 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
     for node_id,label,alexa,location,n_out,n_in,w_out,w_in,w_diff,w_self,p_rank in sel_neg_nodes:
         node_ids.append(str(node_id))
         graph["nodes"].append({"id":str(node_id),"label":label,"x":random.randint(-100,100), "y":random.randint(-100,100),"size":10, "color":"#d9534f"})   
-    #pdb.set_trace()
     #normalize colors
     i = 0
     recs = []
@@ -266,7 +260,7 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
             recs.append(float(rec))
             if i == 20: break          
     #extract all nodes for connected domains
-    #give 20 recommendations  
+    #give up to 20 recommendations  
     i = 0
     for node_id,label,alexa,location,n_out,n_in,w_out,w_in,w_diff,w_self,p_rank, w_conn,rec in data_sorted:
         #only recommend domains not in the joined domain list        
@@ -274,7 +268,6 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
             i = i + 1
             node_ids.append(str(node_id))
             #shade all the recommendation if no pos_domains
-            #pdb.set_trace()
             if len(pos_domains) == 0:
                 rec_col = 0.01
             else:
@@ -284,12 +277,10 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
                     rec_col = 1.0
             #convert to colors
             col = '#%02x%02x%02x' % (150*(1.0-rec_col),150*(1.0-rec_col),255)
-            #col = "#"+str(int(9-float(rec_col)*9.0))+str(int(9-float(rec_col)*9.0))+"F"
             graph["nodes"].append({"id":str(node_id),"label":label,"x":random.randint(-100,100), "y":random.randint(-100,100),"size":(max_size-min_size)*float(rec_col)+min_size, "color":col})
             if i == 20: break   
     
     for arc_id,source,target,weight_n2 in arcs:
-        #pdb.set_trace()
         if str(source) in node_ids and str(target) in node_ids:
             graph["edges"].append({"id":str(arc_id),"source":str(source),"target":str(target), 
             "weight":float(weight_n2), "type":"curvedArrow"})     
