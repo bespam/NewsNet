@@ -34,6 +34,7 @@ def search():
     pos_form = PosForm(csrf_enabled = False)
     neg_form = NegForm(csrf_enabled = False)
     sliders_form = SlidersForm(csrf_enabled = False)
+    print pos_form.data, neg_form.data, sliders_form.data
     #dafault values for sliders
     if "config" in session:
         config = session["config"] 
@@ -284,7 +285,6 @@ def process(arcs, sel_pos_nodes, sel_neg_nodes, rec_nodes, pos_domains, neg_doma
             #convert to colors
             col = '#%02x%02x%02x' % (150*(1.0-rec_col),150*(1.0-rec_col),255)
             #col = "#"+str(int(9-float(rec_col)*9.0))+str(int(9-float(rec_col)*9.0))+"F"
-            print col
             graph["nodes"].append({"id":str(node_id),"label":label,"x":random.randint(-100,100), "y":random.randint(-100,100),"size":(max_size-min_size)*float(rec_col)+min_size, "color":col})
             if i == 20: break   
     
