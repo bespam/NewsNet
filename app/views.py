@@ -34,13 +34,13 @@ def search():
     pos_form = PosForm(csrf_enabled = False)
     neg_form = NegForm(csrf_enabled = False)
     sliders_form = SlidersForm(csrf_enabled = False)
-    print pos_form.data, neg_form.data, sliders_form.data
     #dafault values for sliders
     if "config" in session:
         config = session["config"] 
     else:
         config = {'neg_domains':[],'pos_domains':[], 'links_slider':'40','alexa_slider':'40', 'p_rank_slider':'40',
                 'in_slider':'0','out_slider':'0','self_slider':'0'} 
+    print pos_form.data, neg_form.data, sliders_form.data, config    
     rank_sel =[int(config['links_slider']), int(config['alexa_slider']),int(config['p_rank_slider']),
         int(config['in_slider']),int(config['out_slider']),int(config['self_slider'])]          
     #add pos domain 
