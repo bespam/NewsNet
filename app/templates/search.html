@@ -83,14 +83,14 @@ border-left: none;
                     <div class="row"  id ="sliders" style="visibility: hidden">
                       <form role="form" id="sliders_form" action="/search" method="post" name="slider">  
                         <div class="col-md-6">    
-                    Edge weights:<br><div style="margin-bottom:4px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=15, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Alexa rank (Traffic):<br><div style="margin-bottom:4px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=15, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Page rank (Reach):<br><div style="margin-bottom:4px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=15, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
+                    Edge weights:<br><div style="margin-bottom:4px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=13, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Alexa rank (Traffic):<br><div style="margin-bottom:4px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=13, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Page rank (Reach):<br><div style="margin-bottom:4px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=13, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
                         </div>
                         <div class="col-md-6">
-                    In Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.in_slider(id ='in_slider', class='span2', size=15, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Out Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.out_slider(id ='out_slider', class='span2', size=15, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Self Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.self_slider(id ='self_slider', class='span2', size=15, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    In Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.in_slider(id ='in_slider', class='span2', size=13, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Out Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.out_slider(id ='out_slider', class='span2', size=13, value=config['out_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['out_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Self Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.self_slider(id ='self_slider', class='span2', size=13, value=config['self_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['self_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
                         </div>
                         </form>           
                     </div>
@@ -110,8 +110,8 @@ border-left: none;
         <div class="panel-body" style="margin:0px;height:40%;overflow:auto">
             <table class="table table-hover" style="text-align:left">
                 <tr>
-                  <th style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">Rank</th>
-                  <th style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">Domain</th>
+                  <th style="font-size:115%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">Rank</th>
+                  <th style="font-size:115%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">Domain</th>
                   <th style="background-color:#E8E8E8">Location</th>
                   <th style="background-color:#E8E8E8">Edge weights</th>   
                   <th style="background-color:#E8E8E8">Alexa rank</th>
@@ -122,8 +122,8 @@ border-left: none;
                 </tr>
                 {%for line in data%}
                 <tr>
-                  <td style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[12]}}</td>
-                  <td style="font-size:120%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[1]}}</td>
+                  <td style="font-size:115%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[12]}}</td>
+                  <td style="font-size:115%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">{{line[1]}}</td>
                   <td style="background-color:#E8E8E8">{{line[3]}}</td>
                   <td style="background-color:#E8E8E8">{{"%.4f" % line[11]|float}}</td> 
                   <td style="background-color:#E8E8E8">{{line[2]}}</td>

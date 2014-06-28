@@ -1,12 +1,11 @@
 import pymysql
 import csv
 import pdb
+from app import app, host, port, user, passwd, db
 
-#Local#
-#conn = pymysql.connect(user='root', passwd='12345678', host='localhost')
-#remote
-conn = pymysql.connect(user='bespam', passwd='12345678', host='insight.cv1io5wgnzkw.us-west-1.rds.amazonaws.com', port=3306)
 
+#conect
+conn = pymysql.connect(user=user, passwd=passwd, host=host, port=port)
 db = conn.cursor()
 # create db 
 db.execute('CREATE DATABASE IF NOT EXISTS news_graph')
@@ -43,7 +42,7 @@ db.execute('''CREATE TABLE arcs
 ''')
 
 #save data to tables
-csv_data = csv.reader(open('index_news_out2.csv', 'rb'))
+csv_data = csv.reader(open('db_load/index_news_out2.csv', 'rb'))
 
 i = 0
 for row in csv_data:
@@ -55,7 +54,7 @@ for row in csv_data:
           VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )''', 
           row)
 
-csv_data = csv.reader(open('arcs_news_out2.csv', 'rb'))
+csv_data = csv.reader(open('db_load/arcs_news_out2.csv', 'rb'))
 i=0
 for row in csv_data:
     if i == 0:
