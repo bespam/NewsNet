@@ -85,7 +85,7 @@ border-left: none;
                         <div class="col-md-6">    
                     Edge weights:<br><div style="margin-bottom:4px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=13, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
                     Alexa rank (Traffic):<br><div style="margin-bottom:4px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=13, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
-                    Page rank (Reach):<br><div style="margin-bottom:4px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=13, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
+                    PageRank (Reach):<br><div style="margin-bottom:4px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=13, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
                         </div>
                         <div class="col-md-6">
                     In Degree:<br><div style="margin-bottom:4px">0%{{sliders_form.in_slider(id ='in_slider', class='span2', size=13, value=config['in_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['in_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
@@ -135,7 +135,7 @@ border-left: none;
                 {% endfor %}
             </table>
         </div>
-        <div class="panel-body" style="margin:0px;height:100%; overflow:auto">
+        <div class="panel-body" style="margin:0px;height:100%;overflow:auto">
             <div id="graph-container" style="width:100%;height:55%;border-top:1px;border-top-style:solid;border-color:#428bca"></div>         
         </div>
         {% endif %}
@@ -143,17 +143,20 @@ border-left: none;
             <div class="panel-heading">
                 <h3 class="panel-title">Instructions</h3>
             </div> 
-            <div class="panel-body" style="font-size:120%">
-                <div class="well well-lg">
-                <div class="alert alert-warning">News websites recommender:</div>
+            <div class="panel-body" style="font-size:120%;height:90%;overflow:auto"">
                 <div class="alert alert-info">1: Please enter news website of interest to the "Like these" text field in the green panel</div>
                 <div class="alert alert-info">2: You can also add "Unlike these" news website to the text field in the red panel</div>
-                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-info-sign"></span> More than one news website can be added to the green and red panels</div>
-                <div class="alert alert-info">3: Advanced users can also ballance the recommendation toward more popular or more connected news websites by changing the weights of each node metric</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-info-sign"></span> More than one news website can be added t both panels</div>
+                <div class="alert alert-info">3: Advanced users can also ballance the recommendation by changing the influence of each used metrics</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-resize-small"></span> Edge weights: change the influence of the "fraction of relevant arc weights" to the recommender</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-star"></span> Alexa rank: push the recommendation toward more popular(traffic) news websites</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-star-empty"></span> Page rank: push the recommendation toward more popular(traffic) news websites</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-arrow-left"></span> In Degree: push the recommendation toward websites which generate news</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-arrow-right"></span> Out Degree: push the recommendation toward news aggregator websites</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-repeat"></span> Self Degree: push the recommendation toward websites with closed audience</div>
                 <div class="alert alert-info">4: Use "Explore Full Graph" tab to explore the full news websites graph</div>
                 <div class="alert alert-info">5: Use "Preview Data Table" tab to browse all the graph nodes and metric parameters</div>
                 </div>
-            </div>
         {% endif %}
     </div>
 
