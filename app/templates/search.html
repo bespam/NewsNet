@@ -83,7 +83,7 @@ border-left: none;
                     <div class="row"  id ="sliders" style="visibility: hidden">
                       <form role="form" id="sliders_form" action="/search" method="post" name="slider">  
                         <div class="col-md-6">    
-                    Edge weights:<br><div style="margin-bottom:4px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=11, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
+                    Link weights:<br><div style="margin-bottom:4px">10%{{sliders_form.links_slider(id ='links_slider', class='span2', size=11, value=config['links_slider'], ** {'data-slider-min':'10', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['links_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
                     Alexa rank (Traffic):<br><div style="margin-bottom:4px">0%{{sliders_form.alexa_slider(id ='alexa_slider', class='span2', size=11, value=config['alexa_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['alexa_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>
                     PageRank (Reach):<br><div style="margin-bottom:4px">0%{{sliders_form.p_rank_slider(id ='p_rank_slider', class='span2', size=11, value=config['p_rank_slider'], ** {'data-slider-min':'0', 'data-slider-max':'100', 'data-slider-step':'10', 'data-slider-value':config['p_rank_slider'], 'data-slider-orientation':'horizontal', 'data-slider-selection':'after', 'data-slider-tooltip':'hide'})}}100%</div><br>       
                         </div>
@@ -113,7 +113,7 @@ border-left: none;
                   <th style="font-size:115%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">Rank</th>
                   <th style="font-size:115%;color:#000066;border-right:1px solid #D0D0D0;background-color:#E6E6FF">Domain</th>
                   <th style="background-color:#E8E8E8">Location</th>
-                  <th style="background-color:#E8E8E8">Edge weights</th>   
+                  <th style="background-color:#E8E8E8">Link weights</th>   
                   <th style="background-color:#E8E8E8">Alexa rank</th>
                   <th style="background-color:#E8E8E8">PageRank</th>
                   <th style="background-color:#E8E8E8">In Degree</th>
@@ -148,7 +148,7 @@ border-left: none;
                 <div class="alert alert-info">2: You can also add "Unlike these" news website to the text field in the red panel</div>
                 <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-info-sign"></span> More than one news website can be added to both panels</div>
                 <div class="alert alert-info">3: Advanced users can also ballance the recommendation by changing the influence of each used metric</div>
-                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-resize-small"></span> Edge weights: change the influence of the "fraction of relevant arc weights" to the recommender</div>
+                <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-resize-small"></span> Link weights: change the influence of the "fraction of relevant arc weights" to the recommender</div>
                 <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-star"></span> Alexa rank: push the recommendation toward more popular(traffic) news websites</div>
                 <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-star-empty"></span> Page rank: push the recommendation toward more popular(traffic) news websites</div>
                 <div class="alert alert-info" style="font-size:90%;margin-left:40px;padding:5px"><span class="glyphicon glyphicon-arrow-left"></span> In Degree: push the recommendation toward websites which generate news</div>

@@ -13,8 +13,8 @@
     "intro": "asdasda"
   },
   "legend": {
-    "edgeLabel": "links",
-    "colorLabel": "Edge Diff",
+    "edgeLabel": "Links",
+    "colorLabel": "Weights of In Links - Out Links",
     "nodeLabel": "News media"
   },
   "features": {
